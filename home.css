@@ -1,0 +1,101 @@
+h2{
+    color:tomato;
+    border: black solid 1px;
+    background-color: black;
+}
+h3{
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+#idSticky{
+    position:fixed;
+    top:50%;
+    width:20px;
+    height: 50px;
+}
+#wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+#divListOfContent{
+    width:250px;
+    background-color: gold;
+    padding:10px;
+}
+#main{
+    padding-left: 10px;
+}
+.ullistofcontent{
+    list-style-type: none;
+    margin:1;
+    padding:0;
+}
+.ullistofcontent a:link{
+    text-decoration: none;
+    color: black;
+}
+.ullistofcontent a:visited{
+    text-decoration: none;
+    color: black;
+}
+.ullistofcontent a:hover{
+    text-decoration: none;
+    color: crimson;
+    font-size: 15px;
+    text-indent: 25pt;
+}
+.ullistofcontent a:active{
+    text-decoration: none;
+    color: black;
+}
+.ullistofcontent ul{
+    list-style-type: none;
+    text-indent: -10px;
+    padding-left: -10px;
+    margin-left: -20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 11px;
+}
+.ullistofcontent ul a:hover{
+    list-style-type: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 11px;
+}
+
+
+.ulnavigator{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+.btn{
+    padding: 5px;
+    margin: 5px;
+}
+.btn:hover{
+    color: red;
+}
+#toc{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15pt;
+    font-weight: bold;
+}
+code{
+    text-indent: 50px;
+    color:blueviolet;
+}
+
+@media print{
+    #idSticky{
+        display: none
+    }
+    #wrapper{
+        display: block;
+    }
+}
+#txtSearch{
+    width: 140px;
+    height: 20px;
+    padding: 5px;
+    margin:5px;
+}

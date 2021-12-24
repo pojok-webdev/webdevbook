@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	    <link rel="stylesheet" href="home.css">
+	    <script src="http://code.jquery.com/jquery-latest.js"></script>
+	    <link rel="stylesheet" href="font/css/open-iconic.css" />
+	    <title>Dokumentasi PadiApp API</title>
+	</head>
+    <body>
+    <div id="wrapper">
+	<div id="divListOfContent">
+	    <p id="toc">Daftar Isi</p>
+	    <ul class="ullistofcontent">
+		<li><a href="#client"> Client</a></li>
+		<li><a href="#suspect"> Suspect</a></li>
+		<li><a href="#prospect"> Prospect</a></li>
+		<li><a href="#survey"> Survey</a></li>
+		<li><a href="#install"> Install</a></li>
+		<li><a href="#ticket"> Ticket</a></li>
+		<li><a href="#service"> Layanan</a></li>
+		<li><a href="#device"> Perangkat</a></li>
+	    </ul>
+	</div>
+	<div id="idSticky" class="shown">
+	    <ul class="ulnavigator">
+		<li>
+		    <button id="btnCloser" class="btn" title="Toggle Menu Samping">
+		            <span class="oi" data-glyph="menu"></span>
+		    </button>
+		</li>
+		<li>
+		    <button id="btnTop" class="btn" title="Kembali ke atas">
+		        <span class="oi" data-glyph="chevron-top"></span>
+		    </button>
+		</li>
+		<li>
+		    <button id="btnDownload" class="btn" title="Cetak menggunakan Browser">
+		        <span class="oi" data-glyph="print"></span>
+		    </button>
+		</li>
+		<li class="sidebar">
+		    <input type="text" name="txtSearch" id="txtSearch">
+		</li>
+		<li class="sidebar">
+		    <button id="btnSearch" class="btn" title="Pencarian">
+		        <span class="oi" data-glyph="magnifying-glass"></span>
+		    </button>
+		</li>
+	    </ul>
+	</div>
+        <div id="main">
+            <strong>Work Order API</strong>
+            <p>last update: 23 Desember 2021</p>
+            <p>Server Simulasi: <i>192.168.0.117:20216</i>, Server Produksi: <i>192.168.0.117:20215</i></p>
+            <h1 id="client">Client</h1>
+<h2 id="install">Install</h2>
+<h3>Pengajuan Instalasi</h3>
+<h5>Syntax</h5>
+<code>
+        curl -d "client_id=<strong>client_id</strong>&client_site_id=<strong>client_site_id</strong>&install_date=<strong>install_date</strong>&address=<strong>installation_address</strong>&city=<strong>installation_city</strong>&pic_name=<strong>installation_pic</strong>&pic_phone=<strong>pic_phone</strong>&pic_email=<strong>pic_email</strong>" -X POST localhost:20215/proposeinstall
+</code>
+<p>Nilai kembalian sebagai berikut</p>
+<code>
+        {"result":<strong>Boolean</strong>,"install_request_id":<strong>install_request_id</strong>,"install_site_id":<strong>instalasi_site_id</strong>}
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d "client_id=111&client_site_id=1&install_date=2021-11-30&address=Jl Gadjah Mada Sidoarjo&city=Sidoarjo&pic_name=John&pic_phone=123&pic_email=john@satya.com" -X POST localhost:20215/proposeinstall
+</code>
+<p>Kode di atas akan menghasilkan nilai kembalian sebagai berikut</p>
+<code>
+        {"result":true,"install_request_id":935,"install_site_id":937}
+</code>
+<h3>Update Instalasi</h3>
+<p>Instalasi memiliki banyak data pendukung yang masing-masing dapat diperlakukan sebagai tindakan tersendiri</p>
+<h4>Site</h4>
+<p>Untuk menambahkan Site pada Instalasi harus mengetahui ID request Instalasi</p>
+<h5>Syntax</h5>
+<code>
+        curl -d 'install_request_id=<strong>install_request_id</strong>&city=<strong>request_city</strong>&address=<strong>request_address</strong>' -X POST localhost:20215/createinstallsite
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_request_id=1908&city=Surabayo&address=Jl. Ciliwung No. 74-B' -X POST localhost:20215/createinstallsite
+</code>
+<h5>Syntax</h5>
+<code>
+        curl -d 'id=<strong>install_site_id</strong>&city=<strong>request_city</strong>&<strong>request_address</strong>' -X POST localhost:20215/updateinstallsite
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'id=193&city=Surabayo&address=Jl. Ciliwung No. 74-Bi' -X POST localhost:20215/updateinstallsite
+</code>
+<h4>Antenna</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'install_site_id=<strong>install_site_id</strong>&name=<strong>antenna_name</strong>&amount=<strong>amount</strong>' -X POST localhost:20215/createinstallantenna
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_site_id=1908&name=Pigtail&amount=1' -X POST localhost:20215/createinstallantenna
+</code>
+<h4>AP Wifi</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'install_site_id=<strong>install_site_id</strong>&tipe=<strong>apwifi_type</strong>&macboard=<strong>apwifi_macboard</strong>' -X POST localhost:20215/createinstallapwifi
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_site_id=1908&tipe=Surabayo&macboard=beb' -X POST localhost:20215/createinstallapwifi
+</code>
+<h4>BA</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'install_site_id=<strong>install_site_id</strong>&name=<strong>ba_name</strong>&path=<strong>ba_path</strong>' -X POST localhost:20215/createinstallba
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_site_id=1908&name=Surabayo&path=beb' -X POST localhost:20215/createinstallba
+</code>
+<h4>Layanan Pelanggan</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'client_id=<strong>client_id</strong>&client_site_id=<strong>client_site_id</strong>&service_type=<strong>service_type</strong>' -X POST localhost:20215/createinstallclientservice
+</code>
+<h5>Code</h5>
+<code>
+        curl -d 'client_id=1908&client_site_id=2&service_type=2' -X POST localhost:20215/createinstallclientservice
+</code>
+<h5>Syntax</h5>
+<code>
+        curl -d 'client_id=<strong>client_id</strong>&client_site_id=<strong>client_site_id</strong>&service_type=<strong>service_type</strong>' -X POST localhost:20215/updateinstallclientservice
+</code>
+<h5>Code</h5>
+<code>
+        curl -d 'client_id=1908&client_site_id=2&service_type=2' -X POST localhost:20215/updateinstallclientservice
+</code>
+<h4>Switch</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'install_site_id=<strong>install_site_id</strong>&name=<strong>switch_name</strong>&user=<strong>creator_user</strong>' -X POST localhost:20215/createinstallswitches
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_site_id=1908&name=DLink8Port&user=Kholis' -X POST localhost:20215/createinstallswitches
+</code>
+<h5>Syntax</h5>
+<code>
+        curl -d 'id=<strong>id</strong>&name=<strong>switch_name</strong>&user=<strong>creator_user</strong>' -X POST localhost:20215/updateinstallswitches
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'id=1908&name=DLink8Port&user=Kholis' -X POST localhost:20215/updateinstallswitches
+</code>
+<h4>Wireless Radio</h4>
+<h5>Syntax</h5>
+<code>
+        curl -d 'id=<strong>id</strong>&tipe=<strong>wireless_radio_name</strong>&macboard=<strong>macboard</strong>' -X POST localhost:20215/createinstallwirelessradio
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'install_site_id=1908&tipe=Mikrotik RB 411 L&macboard=D4:CA:6D:84:C1:51' -X POST localhost:20215/createinstallwirelessradio
+</code>
+<h5>Syntax</h5>
+<code>
+        curl -d 'id=<strong>id</strong>&tipe=<strong>wireless_radio_name</strong>&macboard=<strong>macboard</strong>' -X POST localhost:20215/updateinstallwirelessradio
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'id=1908&tipe=Mikrotik RB 411 L&macboard=D4:CA:6D:84:C1:51' -X POST localhost:20215/updateinstallwirelessradio
+</code>
+<h4>Gambar Instalasi</h4>
+<p>
+<i>Gambar instalasi</i> dientri terpisah dari <i>data instalasi</i>, karena karakteristik gambar (data-multipart) berbeda dengan data biasa dalam request POST. Data selain gambar yang dibutuhkan adalah <i>instalasi_site_id</i>,<i>path</i>,<i>roworder</i>,<i>description</i>
+</p>
+<p>
+Entri <i>Gambar instalasi</i> akan mengembalikan nilai nama file gambar instalasi. Nama file ini bersama dengan data-data lain dikirim ulang ke server.
+</p>
+<p>
+<i>Gambar instalasi</i> disimpan dalam direktori aplikasi bernama <i>images/installs</i>
+</p>
+<p>
+Jadi gambar diupload terlebih dahulu, selanjutnya data pelengkap dipost setelahnya.
+</p>
+<h5>Syntax</h5>
+<code>
+        curl -k -X POST -F 'image=<strong>image_path</strong>' -v  http://localhost:20215/installimages
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -k -X POST -F 'image=@/home/webdev/pisau.jpg' -v  http://localhost:20215/installimages
+</code>
+<h5>Syntax</h5>
+<code>
+        curl -d 'filename=<strong>file_name</strong>' -X POST http://localhost:20215/removeinstallimage
+</code>
+<h5>Contoh</h5>
+<code>
+        curl -d 'filename=1640163675618.jpg' -X POST http://localhost:20215/removeinstallimage
+</code>            
+        </div>
+    </div>
+</body>
+<script>
+    (function($){
+        $('#btnCloser').click(function(){
+            $('#divListOfContent').toggle()
+            $(".sidebar").toggle()
+        })
+        $("#btnTop").click(function(){
+            document.documentElement.scrollTop = 0;
+        })
+        $("#btnDownload").click(function(){
+            window.print()
+        })
+        $('#btnFind').click(function(){
+            $('#txtSearch').toggle();
+        })
+        $('#btnSearch').click(function(){
+            window.find($('#txtSearch').val(),false,false,true,true)
+        })
+    }(jQuery))
+</script>
+</html>
